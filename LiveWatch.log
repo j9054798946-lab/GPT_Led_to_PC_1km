@@ -1,0 +1,3 @@
+Expression	Value	Location	Type	
+AT91C_BASE_PITC->PITC_PISR	Error (col 1): Unknown or ambiguous symbol. AT91C_BASE_PITC			
+*(volatile unsigned int*)0xFFFFFD04	[syntax error, unexpected UNSIGNED, expecting ')' or ','] column 12			

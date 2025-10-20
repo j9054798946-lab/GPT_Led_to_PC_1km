@@ -1,0 +1,25 @@
+"--endian=little" 
+
+"--cpu=ARM7TDMI" 
+
+"--fpu=None" 
+
+"-p" 
+
+"C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.5\arm\CONFIG\debugger\Atmel\AT91SAM7S256.ddf" 
+
+"--semihosting" 
+
+"--device=AT91SAM7S256" 
+
+"--drv_communication=USB0" 
+
+"--drv_interface_speed=auto" 
+
+"--jlink_initial_speed=1000" 
+
+"--jlink_reset_strategy=0,0" 
+
+
+
+

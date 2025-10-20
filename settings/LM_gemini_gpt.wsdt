@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<Workspace>
+  <ConfigDictionary>
+    
+  <CurrentConfigs><Project>LM_gemini_gpt/Debug</Project></CurrentConfigs></ConfigDictionary>
+  <Desktop>
+    <Static>
+      <Build>
+        
+        
+        
+        
+      <ColumnWidth0>20</ColumnWidth0><ColumnWidth1>1173</ColumnWidth1><ColumnWidth2>313</ColumnWidth2><ColumnWidth3>78</ColumnWidth3></Build>
+      <Workspace>
+        <ColumnWidths>
+          
+          
+          
+          
+        <Column0>301</Column0><Column1>27</Column1><Column2>27</Column2><Column3>27</Column3></ColumnWidths>
+      </Workspace>
+      <Debug-Log>
+        
+        
+      <ColumnWidth0>20</ColumnWidth0><ColumnWidth1>1565</ColumnWidth1></Debug-Log>
+      <TerminalIO/>
+    </Static>
+    <Windows>
+      
+      
+    <Wnd0>
+        <Tabs>
+          <Tab>
+            <Identity>TabID-31040-385</Identity>
+            <TabName>Build</TabName>
+            <Factory>Build</Factory>
+            <Session/>
+          </Tab>
+          <Tab>
+            <Identity>TabID-20877-780</Identity>
+            <TabName>Debug Log</TabName>
+            <Factory>Debug-Log</Factory>
+            <Session/>
+          </Tab>
+        </Tabs>
+        
+      <SelectedTab>1</SelectedTab></Wnd0><Wnd1>
+        <Tabs>
+          <Tab>
+            <Identity>TabID-9021-388</Identity>
+            <TabName>Workspace</TabName>
+            <Factory>Workspace</Factory>
+            <Session>
+              
+            <NodeDict><ExpandedNode>LM_gemini_gpt</ExpandedNode><ExpandedNode>LM_gemini_gpt/Lib</ExpandedNode><ExpandedNode>LM_gemini_gpt/Lib/board_cstartup_iar.S</ExpandedNode><ExpandedNode>LM_gemini_gpt/Lib/board_cstartup_iar.S/Output</ExpandedNode><ExpandedNode>LM_gemini_gpt/Output</ExpandedNode><ExpandedNode>LM_gemini_gpt/board_cstartup_iar.s</ExpandedNode><ExpandedNode>LM_gemini_gpt/cstartup.s</ExpandedNode><ExpandedNode>LM_gemini_gpt/irq_enable.s79.s</ExpandedNode><ExpandedNode>LM_gemini_gpt/irq_enable.s79.s/Output</ExpandedNode><ExpandedNode>LM_gemini_gpt/lib</ExpandedNode><ExpandedNode>LM_gemini_gpt/lib/at91lib</ExpandedNode><ExpandedNode>LM_gemini_gpt/main.c</ExpandedNode><ExpandedNode>LM_gemini_gpt/main.cpp</ExpandedNode></NodeDict></Session>
+          </Tab>
+        </Tabs>
+        
+      <SelectedTab>0</SelectedTab></Wnd1></Windows>
+    <Editor>
+      
+      
+      
+      
+    <Pane><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\..\..\Program Files (x86)\IAR Systems\Embedded Workbench 7.5\arm\doc\infocenter\index.ENU.html</Filename></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\main.c</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>0</YPos2><SelStart2>1947</SelStart2><SelEnd2>1947</SelEnd2></Tab><ActiveTab>1</ActiveTab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\AT91SAM7S256.h</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>2128</YPos2><SelStart2>155856</SelStart2><SelEnd2>155905</SelEnd2></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\flash.icf</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>0</YPos2><SelStart2>0</SelStart2><SelEnd2>2268</SelEnd2></Tab></Pane><ActivePane>0</ActivePane><Sizes><Pane><X>1000000</X><Y>1000000</Y></Pane></Sizes><SplitMode>1</SplitMode></Editor>
+    <Positions>
+      
+      
+      
+      
+      
+    <Top><Row0><Sizes><Toolbar-04F4C750><key>iaridepm.enu1</key></Toolbar-04F4C750></Sizes></Row0></Top><Left><Row0><Sizes><Wnd1><Rect><Top>-2</Top><Left>-2</Left><Bottom>713</Bottom><Right>375</Right><x>-2</x><y>-2</y><xscreen>233</xscreen><yscreen>222</yscreen><sizeHorzCX>123280</sizeHorzCX><sizeHorzCY>233193</sizeHorzCY><sizeVertCX>199471</sizeVertCX><sizeVertCY>751050</sizeVertCY></Rect></Wnd1></Sizes></Row0></Left><Right><Row0><Sizes/></Row0></Right><Bottom><Row0><Sizes><Wnd0><Rect><Top>-2</Top><Left>-2</Left><Bottom>194</Bottom><Right>1892</Right><x>-2</x><y>-2</y><xscreen>1894</xscreen><yscreen>196</yscreen><sizeHorzCX>1002116</sizeHorzCX><sizeHorzCY>205882</sizeHorzCY><sizeVertCX>123280</sizeVertCX><sizeVertCY>233193</sizeVertCY></Rect></Wnd0></Sizes></Row0></Bottom><Float><Sizes/></Float></Positions>
+  </Desktop>
+</Workspace>
+
+
