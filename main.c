@@ -2,8 +2,8 @@
  * Version: 2012
  * AT91SAM7S256 - LED blink + UART
  * Настройка правильной скорости UART
- */
-
+ * 20.10.2025 скорость изменена на 230400
+*/
 #include "AT91SAM7S256.h"
 #include <intrinsics.h>
 
@@ -183,7 +183,7 @@ int main(void)
                                | 86727;
 
     // Инициализация USART0 с правильным MCK
-    usart0_init(115200);
+    usart0_init(256000);
     
     // Тестовая отправка при старте
     usart0_putc('T');
