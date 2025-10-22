@@ -1,8 +1,10 @@
 /*
- * Version: 2012
+ * Version: 2013
  * AT91SAM7S256 - LED blink + UART
- * Настройка правильной скорости UART
  * 20.10.2025 скорость изменена на 230400
+ * делитель 86727 --> 867 для 500 mks
+ * программный счетчик short_counter lkz 500 ms
+ * формирование 12-байтного пакета каждые 500 mks  !!!
 */
 #include "AT91SAM7S256.h"
 #include <intrinsics.h>
@@ -12,6 +14,8 @@
 #define PIN_CS     (1 << 12)
 #define PIN_DATA   (1 << 15)
 #define PIN_SCLK   (1 << 25)
+
+volatile unsigned int short_counter = 0;   // для LED
 
 //---------------- ADC init -----------------
 void adc_init(void)
@@ -121,30 +125,38 @@ void PIT_Handler(void)
     volatile unsigned int dummy = AT91C_BASE_PITC->PITC_PIVR;
     (void)dummy;
 
-    pit_counter++;
+    // === каждые 500 мкс ===
+    unsigned short adc_values[4];
+    for (int n = 0; n < 4; n++)
+        adc_values[n] = adc_read(n);
+    
+    // формируем 12-байтный пакет
+    unsigned char pkt[12];
+    pkt[0] = led_state ? '1' : '0';
+    for (int n = 0; n < 4; n++) {
+        pkt[1 + 2*n] = (adc_values[n] >> 8) & 0xFF;
+        pkt[2 + 2*n] = adc_values[n] & 0xFF;
+    }
+    pkt[9]  = 0xAA;    // служебные байты (например маркер/CRC — позже добавим)
+    pkt[10] = 0x55;
+    pkt[11] = 0x00;    // запас
 
-    if (pit_counter >= 10) {
-        pit_counter = 0;
+    // отправляем
+    for (int i = 0; i < 12; i++)
+        usart0_putc(pkt[i]);
 
+    // === программное деление до 500 мс ===
+    short_counter++;
+    if (short_counter >= 1000) {      // 1000 ? 0.5 мс = 500 мс
+        short_counter = 0;
+
+        // переключаем LED каждые 0.5 сек
         if (led_state) {
             AT91C_BASE_PIOA->PIO_SODR = LED_PIN;
             led_state = 0;
-            usart0_putc('0');
         } else {
             AT91C_BASE_PIOA->PIO_CODR = LED_PIN;
             led_state = 1;
-            usart0_putc('1');
-        }
-
-        // === Новая часть: чтение 4 АЦП ===
-        unsigned short adc[4];
-        for (int n=0; n<4; n++)
-            adc[n] = adc_read(n);
-
-        // формируем буфер: 8 байт = 4 ? 2
-        for (int n=0; n<4; n++) {
-            usart0_putc((adc[n] >> 8) & 0xFF);
-            usart0_putc(adc[n] & 0xFF);
         }
     }
 }
@@ -180,7 +192,7 @@ int main(void)
     // Точное значение PIT для 50ms
     AT91C_BASE_PITC->PITC_PIMR = AT91C_PITC_PITEN
                                | AT91C_PITC_PITIEN
-                               | 86727;
+                               | 867;
 
     // Инициализация USART0 с правильным MCK
     usart0_init(256000);
