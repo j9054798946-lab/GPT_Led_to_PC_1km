@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# IAR ELF Linker V7.70.1.11437/W32 for ARM                31/Oct/2025  12:47:29
+# IAR ELF Linker V7.70.1.11437/W32 for ARM                31/Oct/2025  16:43:56
 # Copyright 2007-2016 IAR Systems AB.
 #
 #    Output file  =  C:\IAR_projects\IAR_AI\Lmarena\Debug\Exe\LM_gemini_gpt.out
@@ -42,50 +42,49 @@ initialize by copy { rw };
   .intvec            ro code  0x00100000    0x3c  startup.o [1]
                             - 0x0010003c    0x3c
 
-"P2":                                      0x837
+"P2":                                      0x7c4
   Veneer             ro code  0x00100100     0xc  - Linker created -
-  .text              ro code  0x0010010c   0x270  main.o [1]
-  Veneer             ro code  0x0010037c     0x4  - Linker created -
-  .text              ro code  0x00100380   0x1a4  I32DivMod.o [4]
-  .text              ro code  0x00100524   0x1e4  mcp4726.o [1]
-  Veneer             ro code  0x00100708     0x4  - Linker created -
-  .text              ro code  0x0010070c    0x10  main.o [1]
-  .text              ro code  0x0010071c     0x4  IntDivZer.o [4]
-  .text              ro code  0x00100720    0xe4  startup.o [1]
-  Veneer             ro code  0x00100804     0xc  - Linker created -
-  Veneer             ro code  0x00100810     0xc  - Linker created -
-  Veneer             ro code  0x0010081c     0xc  - Linker created -
-  Veneer             ro code  0x00100828     0xc  - Linker created -
-  .text              ro code  0x00100834    0x2c  cmain.o [4]
-  .text              ro code  0x00100860     0x4  low_level_init.o [3]
-  .text              ro code  0x00100864    0x32  data_init.o [4]
-  .text              ro code  0x00100896     0xa  exit.o [3]
-  .text              ro code  0x001008a0    0x20  exit.o [5]
-  Veneer             ro code  0x001008c0     0x4  - Linker created -
-  .text              ro code  0x001008c4    0x10  cexit.o [4]
-  .text              ro code  0x001008d4    0x40  packbits_init_single.o [4]
-  .iar.init_table    const    0x00100914    0x10  - Linker created -
-  .text              ro code  0x00100924     0x4  vectortrap.o [4]
-  .text              ro code  0x00100928     0x4  xreturnswi.o [5]
-  .rodata            const    0x0010092c     0x0  packbits_init_single.o [4]
-  Initializer bytes  const    0x0010092c     0xb  <for P3-1>
-                            - 0x00100937   0x837
+  .text              ro code  0x0010010c   0x200  main.o [1]
+  Veneer             ro code  0x0010030c     0x4  - Linker created -
+  .text              ro code  0x00100310   0x1a4  I32DivMod.o [4]
+  .text              ro code  0x001004b4   0x1e4  mcp4726.o [1]
+  Veneer             ro code  0x00100698     0x4  - Linker created -
+  .text              ro code  0x0010069c    0x10  main.o [1]
+  .text              ro code  0x001006ac     0x4  IntDivZer.o [4]
+  .text              ro code  0x001006b0    0xe4  startup.o [1]
+  Veneer             ro code  0x00100794     0xc  - Linker created -
+  Veneer             ro code  0x001007a0     0xc  - Linker created -
+  Veneer             ro code  0x001007ac     0xc  - Linker created -
+  Veneer             ro code  0x001007b8     0xc  - Linker created -
+  .text              ro code  0x001007c4    0x2c  cmain.o [4]
+  .text              ro code  0x001007f0     0x4  low_level_init.o [3]
+  .text              ro code  0x001007f4    0x32  data_init.o [4]
+  .text              ro code  0x00100826     0xa  exit.o [3]
+  .text              ro code  0x00100830    0x20  exit.o [5]
+  Veneer             ro code  0x00100850     0x4  - Linker created -
+  .text              ro code  0x00100854    0x10  cexit.o [4]
+  .text              ro code  0x00100864    0x30  copy_init3.o [4]
+  .iar.init_table    const    0x00100894    0x14  - Linker created -
+  Initializer bytes  const    0x001008a8    0x14  <for P3-1>
+  .text              ro code  0x001008bc     0x4  vectortrap.o [4]
+  .text              ro code  0x001008c0     0x4  xreturnswi.o [5]
+  .rodata            const    0x001008c4     0x0  copy_init3.o [4]
+                            - 0x001008c4   0x7c4
 
-"P3", part 1 of 2:                          0x1c
-  P3-1                        0x00200000    0x1c  <Init block>
+"P3", part 1 of 2:                          0x14
+  P3-1                        0x00200000    0x14  <Init block>
     .data            inited   0x00200000     0x4  mcp4726.o [1]
     .bss             inited   0x00200004     0xc  main.o [1]
-    .bss             inited   0x00200010     0x8  main.o [1]
-    .data            inited   0x00200018     0x2  mcp4726.o [1]
-    .data            inited   0x0020001a     0x2  mcp4726.o [1]
-                            - 0x0020001c    0x1c
+    .data            inited   0x00200010     0x2  mcp4726.o [1]
+    .data            inited   0x00200012     0x2  mcp4726.o [1]
+                            - 0x00200014    0x14
 
 "P3", part 2 of 2:                        0x1800
-  IRQ_STACK                   0x00200020   0x800  <Block>
-    IRQ_STACK        uninit   0x00200020   0x800  <Block tail>
-  CSTACK                      0x00200820  0x1000  <Block>
-    CSTACK           uninit   0x00200820  0x1000  <Block tail>
-                            - 0x00201820  0x1800
+  IRQ_STACK                   0x00200018   0x800  <Block>
+    IRQ_STACK        uninit   0x00200018   0x800  <Block tail>
+  CSTACK                      0x00200818  0x1000  <Block>
+    CSTACK           uninit   0x00200818  0x1000  <Block tail>
+                            - 0x00201818  0x1800
 
 
 *******************************************************************************
@@ -94,11 +93,11 @@ initialize by copy { rw };
 
           Address     Size
           -------     ----
-Copy/packbits (__iar_packbits_init_single3)
-    1 source range, total size 0xb (39% of destination):
-          0x0010092c   0xb
-    1 destination range, total size 0x1c:
-          0x00200000  0x1c
+Copy (__iar_copy_init3)
+    1 source range, total size 0x14:
+          0x001008a8  0x14
+    1 destination range, total size 0x14:
+          0x00200000  0x14
 
 
 
@@ -106,45 +105,45 @@ Copy/packbits (__iar_packbits_init_single3)
 *** MODULE SUMMARY
 ***
 
-    Module                  ro code  ro data  rw data
-    ------                  -------  -------  -------
+    Module            ro code  ro data  rw data
+    ------            -------  -------  -------
 C:\IAR_projects\IAR_AI\Lmarena\Debug\Obj: [1]
-    main.o                      640        8       20
-    mcp4726.o                   484        3        8
-    startup.o                   288
-    -------------------------------------------------
-    Total:                    1 412       11       28
+    main.o                528       12       12
+    mcp4726.o             484        8        8
+    startup.o             288
+    -------------------------------------------
+    Total:              1 300       20       20
 
 command line: [2]
-    -------------------------------------------------
+    -------------------------------------------
     Total:
 
 dl4t_tln.a: [3]
-    exit.o                       10
-    low_level_init.o              4
-    -------------------------------------------------
-    Total:                       14
+    exit.o                 10
+    low_level_init.o        4
+    -------------------------------------------
+    Total:                 14
 
 rt4t_al.a: [4]
-    I32DivMod.o                 420
-    IntDivZer.o                   4
-    cexit.o                      16
-    cmain.o                      44
-    data_init.o                  50
-    packbits_init_single.o       64
-    vectortrap.o                  4
-    -------------------------------------------------
-    Total:                      602
+    I32DivMod.o           420
+    IntDivZer.o             4
+    cexit.o                16
+    cmain.o                44
+    copy_init3.o           48
+    data_init.o            50
+    vectortrap.o            4
+    -------------------------------------------
+    Total:                586
 
 shs_l.a: [5]
-    exit.o                       32
-    xreturnswi.o                  4
-    -------------------------------------------------
-    Total:                       36
+    exit.o                 32
+    xreturnswi.o            4
+    -------------------------------------------
+    Total:                 36
 
-    Linker created               72       16    6 144
------------------------------------------------------
-    Grand Total:              2 136       27    6 172
+    Linker created         72       20    6 144
+-----------------------------------------------
+    Grand Total:        2 008       40    6 164
 
 
 *******************************************************************************
@@ -153,24 +152,24 @@ shs_l.a: [5]
 
 Entry                      Address  Size  Type      Object
 -----                      -------  ----  ----      ------
-.iar.init_table$$Base   0x00100914         --   Gb  - Linker created -
-.iar.init_table$$Limit  0x00100924         --   Gb  - Linker created -
-?main                   0x00100834        Code  Gb  cmain.o [4]
-Abort_Handler           0x00100924        Code  Wk  vectortrap.o [4]
-CSTACK$$Base            0x00200820         --   Gb  - Linker created -
-CSTACK$$Limit           0x00201820         --   Gb  - Linker created -
-FIQ_Handler             0x00100924        Code  Wk  vectortrap.o [4]
+.iar.init_table$$Base   0x00100894         --   Gb  - Linker created -
+.iar.init_table$$Limit  0x001008a8         --   Gb  - Linker created -
+?main                   0x001007c4        Code  Gb  cmain.o [4]
+Abort_Handler           0x001008bc        Code  Wk  vectortrap.o [4]
+CSTACK$$Base            0x00200818         --   Gb  - Linker created -
+CSTACK$$Limit           0x00201818         --   Gb  - Linker created -
+FIQ_Handler             0x001008bc        Code  Wk  vectortrap.o [4]
 FIQ_STACK$$Limit        0x00000000         --   Gb  - Linker created -
-IRQ_Handler             0x001002c4  0x34  Code  Gb  main.o [1]
-IRQ_STACK$$Base         0x00200020         --   Gb  - Linker created -
-IRQ_STACK$$Limit        0x00200820         --   Gb  - Linker created -
-PIT_Handler             0x00100229  0x98  Code  Gb  main.o [1]
-Prefetch_Handler        0x00100924        Code  Wk  vectortrap.o [4]
-Region$$Table$$Base     0x00100914         --   Gb  - Linker created -
-Region$$Table$$Limit    0x00100924         --   Gb  - Linker created -
-SCL_HIGH                0x0010054b  0x2e  Code  Lc  mcp4726.o [1]
-SWI_Handler             0x00100924        Code  Wk  vectortrap.o [4]
-Undefined_Handler       0x00100924        Code  Wk  vectortrap.o [4]
+IRQ_Handler             0x00100240  0x34  Code  Gb  main.o [1]
+IRQ_STACK$$Base         0x00200018         --   Gb  - Linker created -
+IRQ_STACK$$Limit        0x00200818         --   Gb  - Linker created -
+PIT_Handler             0x001001dd  0x50  Code  Gb  main.o [1]
+Prefetch_Handler        0x001008bc        Code  Wk  vectortrap.o [4]
+Region$$Table$$Base     0x00100894         --   Gb  - Linker created -
+Region$$Table$$Limit    0x001008a8         --   Gb  - Linker created -
+SCL_HIGH                0x001004db  0x2e  Code  Lc  mcp4726.o [1]
+SWI_Handler             0x001008bc        Code  Wk  vectortrap.o [4]
+Undefined_Handler       0x001008bc        Code  Wk  vectortrap.o [4]
 __ICFEDIT_region_RAM_end__ {Abs}
                         0x0020ffff        Data  Gb  command line/config [2]
 __ICFEDIT_region_RAM_start__ {Abs}
@@ -191,55 +190,45 @@ __ICFEDIT_size_svcstack__ {Abs}
                         0x00000400        Data  Gb  command line/config [2]
 __ICFEDIT_size_vectors__ {Abs}
                         0x00000100        Data  Gb  command line/config [2]
-__aeabi_idiv0           0x0010071c        Code  Gb  IntDivZer.o [4]
-__aeabi_uidiv           0x00100380        Code  Gb  I32DivMod.o [4]
-__aeabi_uidivmod        0x00100380        Code  Gb  I32DivMod.o [4]
-__cmain                 0x00100834        Code  Gb  cmain.o [4]
-__exit                  0x001008a0  0x20  Code  Gb  exit.o [5]
-__iar_data_init3        0x00100865  0x30  Code  Gb  data_init.o [4]
-__iar_enable_interrupt  0x0010070c        Code  Gb  main.o [1]
-__iar_packbits_init_single3
-                        0x001008d5  0x40  Code  Gb  packbits_init_single.o [4]
-__iar_program_start     0x00100720        Code  Gb  startup.o [1]
-__iar_return_from_swi   0x00100928   0x4  Code  Gb  xreturnswi.o [5]
-__low_level_init        0x00100861   0x4  Code  Gb  low_level_init.o [3]
+__aeabi_idiv0           0x001006ac        Code  Gb  IntDivZer.o [4]
+__aeabi_uidiv           0x00100310        Code  Gb  I32DivMod.o [4]
+__aeabi_uidivmod        0x00100310        Code  Gb  I32DivMod.o [4]
+__cmain                 0x001007c4        Code  Gb  cmain.o [4]
+__exit                  0x00100830  0x20  Code  Gb  exit.o [5]
+__iar_copy_init3        0x00100865  0x30  Code  Gb  copy_init3.o [4]
+__iar_data_init3        0x001007f5  0x30  Code  Gb  data_init.o [4]
+__iar_enable_interrupt  0x0010069c        Code  Gb  main.o [1]
+__iar_program_start     0x001006b0        Code  Gb  startup.o [1]
+__iar_return_from_swi   0x001008c0   0x4  Code  Gb  xreturnswi.o [5]
+__low_level_init        0x001007f1   0x4  Code  Gb  low_level_init.o [3]
 __vector                0x00100000        Data  Gb  startup.o [1]
-_call_main              0x00100848        Code  Gb  cmain.o [4]
-_exit                   0x001008c4        Code  Gb  cexit.o [4]
-_main                   0x00100850        Code  Gb  cmain.o [4]
+_call_main              0x001007d8        Code  Gb  cmain.o [4]
+_exit                   0x00100854        Code  Gb  cexit.o [4]
+_main                   0x001007e0        Code  Gb  cmain.o [4]
 adc_init                0x0010010d  0x1a  Code  Gb  main.o [1]
 adc_read                0x00100127  0x60  Code  Gb  main.o [1]
-check_timeout           0x001001c9  0x1c  Code  Gb  main.o [1]
-exit                    0x00100897   0xa  Code  Gb  exit.o [3]
+exit                    0x00100827   0xa  Code  Gb  exit.o [3]
 g_current_sda_mask      0x00200000   0x4  Data  Lc  mcp4726.o [1]
-g_i2c_delay_loops       0x00200018   0x2  Data  Lc  mcp4726.o [1]
-g_initialized           0x0020001b   0x1  Data  Lc  mcp4726.o [1]
-g_mcp4726_addr          0x0020001a   0x1  Data  Lc  mcp4726.o [1]
-g_sda_masks             0x001006f8  0x10  Data  Lc  mcp4726.o [1]
+g_i2c_delay_loops       0x00200010   0x2  Data  Lc  mcp4726.o [1]
+g_initialized           0x00200013   0x1  Data  Lc  mcp4726.o [1]
+g_mcp4726_addr          0x00200012   0x1  Data  Lc  mcp4726.o [1]
+g_sda_masks             0x00100688  0x10  Data  Lc  mcp4726.o [1]
 g_tick_counter          0x00200008   0x4  Data  Gb  main.o [1]
-i2c_delay               0x00100525  0x26  Code  Lc  mcp4726.o [1]
-i2c_start               0x00100579  0x26  Code  Lc  mcp4726.o [1]
-i2c_stop                0x0010059f  0x24  Code  Lc  mcp4726.o [1]
-i2c_write_byte          0x001005c3  0x54  Code  Lc  mcp4726.o [1]
+i2c_delay               0x001004b5  0x26  Code  Lc  mcp4726.o [1]
+i2c_start               0x00100509  0x26  Code  Lc  mcp4726.o [1]
+i2c_stop                0x0010052f  0x24  Code  Lc  mcp4726.o [1]
+i2c_write_byte          0x00100553  0x54  Code  Lc  mcp4726.o [1]
 led_state               0x0020000c   0x4  Data  Gb  main.o [1]
-low_level_init          0x00100770        Code  Gb  startup.o [1]
-main                    0x001002f9  0x46  Code  Gb  main.o [1]
-mcp4726_init_all        0x0010062f  0x34  Code  Gb  mcp4726.o [1]
-mcp4726_set_all_zero    0x001006bd  0x1e  Code  Gb  mcp4726.o [1]
+low_level_init          0x00100700        Code  Gb  startup.o [1]
+main                    0x00100275  0x6a  Code  Gb  main.o [1]
+mcp4726_init_all        0x001005bf  0x34  Code  Gb  mcp4726.o [1]
+mcp4726_set_all_zero    0x0010064d  0x1e  Code  Gb  mcp4726.o [1]
 mcp4726_write_dac_channel
-                        0x00100663  0x5a  Code  Gb  mcp4726.o [1]
-select_channel          0x00100619  0x16  Code  Lc  mcp4726.o [1]
+                        0x001005f3  0x5a  Code  Gb  mcp4726.o [1]
+select_channel          0x001005a9  0x16  Code  Lc  mcp4726.o [1]
 short_counter           0x00200004   0x4  Data  Gb  main.o [1]
-test_dac_sequential_channels
-                        0x001001e5  0x44  Code  Gb  main.o [1]
-test_dac_sequential_channels::current_channel
-                        0x00200010   0x1  Data  Lc  main.o [1]
-test_dac_sequential_channels::dac_value
-                        0x00200012   0x2  Data  Lc  main.o [1]
-test_dac_sequential_channels::last_update
-                        0x00200014   0x4  Data  Lc  main.o [1]
-usart0_init             0x00100187  0x36  Code  Gb  main.o [1]
-usart0_putc             0x001001bd   0xc  Code  Gb  main.o [1]
+usart0_init             0x00100187  0x42  Code  Gb  main.o [1]
+usart0_putc             0x001001c9   0xc  Code  Gb  main.o [1]
 
 
 [1] = C:\IAR_projects\IAR_AI\Lmarena\Debug\Obj
@@ -248,9 +237,9 @@ usart0_putc             0x001001bd   0xc  Code  Gb  main.o [1]
 [4] = rt4t_al.a
 [5] = shs_l.a
 
-  2 136 bytes of readonly  code memory
-     27 bytes of readonly  data memory
-  6 172 bytes of readwrite data memory
+  2 008 bytes of readonly  code memory
+     40 bytes of readonly  data memory
+  6 164 bytes of readwrite data memory
 
 Errors: none
 Warnings: none
