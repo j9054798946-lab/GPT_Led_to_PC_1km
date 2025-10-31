@@ -2327,6 +2327,12 @@
     <name>$PROJ_DIR$\..\..\C\main.ENU.projtempl</name>
   </file>
   <file>
+    <name>$PROJ_DIR$\my_dac.c</name>
+  </file>
+  <file>
+    <name>$PROJ_DIR$\my_dac.h</name>
+  </file>
+  <file>
     <name>$PROJ_DIR$\startup.s</name>
   </file>
 </project>

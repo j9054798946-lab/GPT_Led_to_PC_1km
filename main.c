@@ -1,13 +1,14 @@
 /*
  * Version: 2013
  * AT91SAM7S256 - LED blink + UART
- * 20.10.2025 скорость изменена на 230400
+ * 20.10.2025 скорость изменена на 256000
  * делитель 86727 --> 867 для 500 mks
- * программный счетчик short_counter lkz 500 ms
+ * программный счетчик short_counter для 500 ms
  * формирование 12-байтного пакета каждые 500 mks  !!!
 */
 #include "AT91SAM7S256.h"
 #include <intrinsics.h>
+#include "my_dac.h"
 
 #define LED_PIN (1 << 7)
 
@@ -16,6 +17,10 @@
 #define PIN_SCLK   (1 << 25)
 
 volatile unsigned int short_counter = 0;   // для LED
+
+// тестовые приращения (можно редактировать и перепрошивать)
+static const unsigned short step[4] = {1000, 0, 0, 0};   // 500 квантов только для 1-го канала
+static unsigned short dac_val[4] = {0, 0, 0, 0};
 
 //---------------- ADC init -----------------
 void adc_init(void)
@@ -72,7 +77,7 @@ unsigned short adc_read(unsigned int adc_num)
     return value;
 }
 
-//------------------------------------------------
+//----------------MSK init----------------------------
 volatile unsigned int led_state = 0;
 volatile unsigned int pit_counter = 0;
 
@@ -112,7 +117,7 @@ void usart0_init(unsigned int baud)
     AT91C_BASE_US0->US_CR = AT91C_US_TXEN | AT91C_US_RXEN;
 }
 
-// отправка одного символа
+// ----------------отправка одного символа------
 void usart0_putc(char c)
 {
     while (!(AT91C_BASE_US0->US_CSR & AT91C_US_TXRDY));
@@ -124,12 +129,10 @@ void PIT_Handler(void)
 {
     volatile unsigned int dummy = AT91C_BASE_PITC->PITC_PIVR;
     (void)dummy;
-
     // === каждые 500 мкс ===
     unsigned short adc_values[4];
     for (int n = 0; n < 4; n++)
         adc_values[n] = adc_read(n);
-    
     // формируем 12-байтный пакет
     unsigned char pkt[12];
     pkt[0] = led_state ? '1' : '0';
@@ -140,7 +143,6 @@ void PIT_Handler(void)
     pkt[9]  = 0xAA;    // служебные байты (например маркер/CRC — позже добавим)
     pkt[10] = 0x55;
     pkt[11] = 0x00;    // запас
-
     // отправляем
     for (int i = 0; i < 12; i++)
         usart0_putc(pkt[i]);
@@ -152,12 +154,19 @@ void PIT_Handler(void)
 
         // переключаем LED каждые 0.5 сек
         if (led_state) {
-            AT91C_BASE_PIOA->PIO_SODR = LED_PIN;
-            led_state = 0;
+            AT91C_BASE_PIOA->PIO_SODR = LED_PIN; // установка в "1"
+            led_state = 0;                       // не горит
         } else {
-            AT91C_BASE_PIOA->PIO_CODR = LED_PIN;
-            led_state = 1;
+            AT91C_BASE_PIOA->PIO_CODR = LED_PIN; // установка в "0"
+            led_state = 1;                       // горит
         }
+         // <<< вставка теста ЦАП >>>
+    for (int ch = 0; ch < 4; ch++) {
+        dac_val[ch] += step[ch];           // прибавляем шаг для каждого канала
+        if (dac_val[ch] > 4095)            // переполнение 12-бит
+            dac_val[ch] = 0;
+    }
+    dac_write(dac_val);                    //вызов инктремента по DAC 
     }
 }
 
@@ -197,13 +206,8 @@ int main(void)
     // Инициализация USART0 с правильным MCK
     usart0_init(256000);
     
-    // Тестовая отправка при старте
-    usart0_putc('T');
-    usart0_putc('E');
-    usart0_putc('S');
-    usart0_putc('T');
-    usart0_putc('\r');
-    usart0_putc('\n');
+    dac_init();           // инициализация пинов MCP4726
+    dac_write(dac_val);   // начальная установка всех ЦАП в 0
     
     __enable_interrupt();
 
