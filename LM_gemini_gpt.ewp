@@ -1935,10 +1935,10 @@
     <name>$PROJ_DIR$\..\..\C\main.ENU.projtempl</name>
   </file>
   <file>
-    <name>$PROJ_DIR$\my_dac.c</name>
+    <name>$PROJ_DIR$\mcp4726.c</name>
   </file>
   <file>
-    <name>$PROJ_DIR$\my_dac.h</name>
+    <name>$PROJ_DIR$\mcp4726.h</name>
   </file>
   <file>
     <name>$PROJ_DIR$\startup.s</name>
