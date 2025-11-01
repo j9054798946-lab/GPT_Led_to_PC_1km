@@ -1,6 +1,6 @@
 /*
- * Version: 2018 - ФИНАЛЬНАЯ РАБОЧАЯ с АЦП
- * AT91SAM7S256 - 4? АЦП AD7680 + 4? ЦАП MCP4726 + управление с ПК
+ * Version: 2019 - С БАТЧИНГОМ (группировка пакетов)
+ * Измерения каждые 500 мкс, отправка батчами каждые 5 мс
  */
 #include "AT91SAM7S256.h"
 #include <intrinsics.h>
@@ -20,11 +20,22 @@ volatile uint32_t g_tick_counter = 0;
 #define CMD_PACKET_LEN      6
 #define CMD_HEADER1         0xAA
 #define CMD_HEADER2         0x55
-
 #define CMD_TEST_SEQUENTIAL 0x01
 #define CMD_ALIGN_CHANNELS  0x02
 #define CMD_MEANDER         0x03
-#define CMD_SET_DAC         0x04
+
+// ========== БАТЧИНГ ==========
+#define BATCH_SIZE          20   // Количество измерений в батче
+#define ADC_CHANNELS        4
+
+// Буфер для батча: BATCH_SIZE измерений ? 4 канала ? 2 байта = 80 байт
+typedef struct {
+    uint16_t adc[ADC_CHANNELS];
+    uint8_t led;
+} Measurement_t;
+
+static Measurement_t batch_buffer[BATCH_SIZE];
+static volatile uint8_t batch_index = 0;
 
 // ========== Флаги управления ==========
 volatile bool g_test_sequential_enabled = false;
@@ -55,20 +66,18 @@ unsigned short adc_read(unsigned int adc_num)
     int i;
 
     switch (adc_num) {
-        case 0: data_pin = (1 << 15); break;  // PA15
-        case 1: data_pin = (1 << 24); break;  // PA24
-        case 2: data_pin = (1 << 10); break;  // PA10
-        case 3: data_pin = (1 << 29); break;  // PA29
+        case 0: data_pin = (1 << 15); break;
+        case 1: data_pin = (1 << 24); break;
+        case 2: data_pin = (1 << 10); break;
+        case 3: data_pin = (1 << 29); break;
         default: data_pin = (1 << 15);
     }
 
     AT91C_BASE_PIOA->PIO_CODR = PIN_CS;
-
     for (i = 0; i < 4; i++) {
         AT91C_BASE_PIOA->PIO_CODR = PIN_SCLK;
         AT91C_BASE_PIOA->PIO_SODR = PIN_SCLK;
     }
-
     for (i = 0; i < 16; i++) {
         AT91C_BASE_PIOA->PIO_CODR = PIN_SCLK;
         AT91C_BASE_PIOA->PIO_SODR = PIN_SCLK;
@@ -76,7 +85,6 @@ unsigned short adc_read(unsigned int adc_num)
         if (AT91C_BASE_PIOA->PIO_PDSR & data_pin)
             value |= 1;
     }
-
     AT91C_BASE_PIOA->PIO_SODR = PIN_CS;
     return value;
 }
@@ -98,8 +106,6 @@ void usart0_init(unsigned int baud)
     cd = (MCK + (baud * 8)) / (16 * baud);
     AT91C_BASE_US0->US_BRGR = cd;
     AT91C_BASE_US0->US_CR = AT91C_US_TXEN | AT91C_US_RXEN;
-    
-    // Отключить прерывания USART
     AT91C_BASE_US0->US_IDR = 0xFFFFFFFF;
     AT91C_BASE_US0->US_CR = AT91C_US_RSTSTA;
 }
@@ -115,6 +121,32 @@ void usart0_puts(const char* str)
     while (*str) {
         usart0_putc(*str++);
     }
+}
+
+// ========== Отправка батча ==========
+void send_batch(void)
+{
+    // Заголовок батча: 0xBB <размер>
+    usart0_putc(0xBB);  // Маркер начала батча
+    usart0_putc(batch_index);  // Количество измерений в батче
+    
+    // Отправка всех измерений
+    for (uint8_t i = 0; i < batch_index; i++) {
+        // LED состояние
+        usart0_putc(batch_buffer[i].led ? '1' : '0');
+        
+        // 4 канала АЦП
+        for (uint8_t ch = 0; ch < ADC_CHANNELS; ch++) {
+            usart0_putc((batch_buffer[i].adc[ch] >> 8) & 0xFF);  // Старший байт
+            usart0_putc(batch_buffer[i].adc[ch] & 0xFF);         // Младший байт
+        }
+    }
+    
+    // Маркер конца батча
+    usart0_putc(0xCC);
+    
+    // Сброс индекса
+    batch_index = 0;
 }
 
 // ========== Обработка принятой команды ==========
@@ -134,26 +166,17 @@ void process_command(uint8_t *cmd_buf)
         return;
     }
 
-    // Отправка Echo
+    // Отправка Echo (с уникальным заголовком)
+    usart0_putc(0xAA);
     usart0_putc(0xEE);
     usart0_putc(cmd);
     usart0_putc(data1);
     usart0_putc(data2);
 
-    // Обработка команд
     switch (cmd) {
         case CMD_TEST_SEQUENTIAL:
             g_test_sequential_enabled = (data1 == 0x01);
             break;
-
-        case CMD_ALIGN_CHANNELS:
-            // Будет реализовано позже
-            break;
-
-        case CMD_MEANDER:
-            // Будет реализовано позже
-            break;
-
         default:
             break;
     }
@@ -184,7 +207,6 @@ void check_usart_rx(void)
         }
         else {
             rx_cmd_buffer[rx_cmd_index++] = received_byte;
-
             if (rx_cmd_index >= CMD_PACKET_LEN) {
                 process_command(rx_cmd_buffer);
                 rx_cmd_index = 0;
@@ -193,7 +215,6 @@ void check_usart_rx(void)
     }
 }
 
-// ============ ФУНКЦИЯ ПРОВЕРКИ ТАЙМАУТА ============
 bool check_timeout(uint32_t *last_time, uint32_t ticks) 
 {
     if ((g_tick_counter - *last_time) >= ticks) {
@@ -210,10 +231,8 @@ void test_dac_sequential_channels(void)
     static uint8_t current_channel = 0;
     static uint32_t last_update = 0;
     
-    if (check_timeout(&last_update, 2000)) {  // Каждую 1 секунду
-        
+    if (check_timeout(&last_update, 2000)) {
         dac_value += 200;
-        
         if (dac_value > 4095) {
             dac_value = 0;
             current_channel++;
@@ -221,7 +240,6 @@ void test_dac_sequential_channels(void)
                 current_channel = 0;
             }
         }
-        
         mcp4726_write_dac_channel(current_channel, dac_value);
     }
 }
@@ -234,56 +252,30 @@ void PIT_Handler(void)
     
     g_tick_counter++;
     
-    // ========== ЧТЕНИЕ АЦП И ОТПРАВКА ПАКЕТА ==========
-    /*unsigned short adc_values[4];
-    for (int n = 0; n < 4; n++)
-        adc_values[n] = adc_read(n);
-    
-    unsigned char pkt[12];
-    pkt[0] = led_state ? '1' : '0';
-    for (int n = 0; n < 4; n++) {
-        pkt[1 + 2*n] = (adc_values[n] >> 8) & 0xFF;
-        pkt[2 + 2*n] = adc_values[n] & 0xFF;
-    }
-    pkt[9]  = 0xAA;
-    pkt[10] = 0x55;
-    pkt[11] = 0x00;
-    
-    for (int i = 0; i < 12; i++)
-        usart0_putc(pkt[i]);*/
-  // ========== ВРЕМЕННО: Отправка АЦП раз в 10 мс вместо 500 мкс ==========
-    static uint16_t adc_divider = 0;
-    adc_divider++;
-    
-    if (adc_divider >= 20) {  // 20 ? 500мкс = 10 мс
-        adc_divider = 0;
-        
-        unsigned short adc_values[4];
-        for (int n = 0; n < 4; n++)
-            adc_values[n] = adc_read(n);
-        
-        unsigned char pkt[12];
-        pkt[0] = led_state ? '1' : '0';
-        for (int n = 0; n < 4; n++) {
-            pkt[1 + 2*n] = (adc_values[n] >> 8) & 0xFF;
-            pkt[2 + 2*n] = adc_values[n] & 0xFF;
+    // ========== КАЖДЫЕ 500 мкс: Измерить и сохранить ==========
+    if (batch_index < BATCH_SIZE) {
+        // Чтение АЦП
+        for (int n = 0; n < ADC_CHANNELS; n++) {
+            batch_buffer[batch_index].adc[n] = adc_read(n);
         }
-        pkt[9]  = 0xAA;
-        pkt[10] = 0x55;
-        pkt[11] = 0x00;
+        batch_buffer[batch_index].led = led_state;
         
-        for (int i = 0; i < 12; i++)
-            usart0_putc(pkt[i]);
+        batch_index++;
+        
+        // Если батч заполнен - отправить
+        if (batch_index >= BATCH_SIZE) {
+            send_batch();
+        }
     }
-    // ========== LED мигание каждые 500 мс ==========
+
+    // LED мигание
     short_counter++;
-    if (short_counter >= 1000) {      // 1000 ? 500 мкс = 500 мс
+    if (short_counter >= 1000) {
         short_counter = 0;
         if (led_state) {
             AT91C_BASE_PIOA->PIO_SODR = LED_PIN;
             led_state = 0;
         } else {
-            AT91C_BASE_PIOA->PIO_CODR = LED_PIN;  // можно здесь коммент. для не включения
             led_state = 1;
         }
     }
@@ -301,41 +293,28 @@ __irq void IRQ_Handler(void)
 // ---------------- MAIN ----------------
 int main(void)
 {
-    // Отключаем watchdog
     AT91C_BASE_WDTC->WDTC_WDMR = AT91C_WDTC_WDDIS;
-
-    // Инициализация LED
     AT91C_BASE_PMC->PMC_PCER = (1 << AT91C_ID_PIOA);
     AT91C_BASE_PIOA->PIO_PER = LED_PIN;
     AT91C_BASE_PIOA->PIO_OER = LED_PIN;
-    AT91C_BASE_PIOA->PIO_SODR = LED_PIN;  // OFF по умолчанию
+    AT91C_BASE_PIOA->PIO_SODR = LED_PIN;
  
-    // Инициализация АЦП
     adc_init();
     
-    // AIC: разрешаем SYS-прерывания (PIT)
     AT91C_BASE_AIC->AIC_IDCR = (1 << AT91C_ID_SYS);
     AT91C_BASE_AIC->AIC_ICCR = (1 << AT91C_ID_SYS);
     AT91C_BASE_AIC->AIC_IECR = (1 << AT91C_ID_SYS);
+    AT91C_BASE_PITC->PITC_PIMR = AT91C_PITC_PITEN | AT91C_PITC_PITIEN | 867;
 
-    // PIT на 500 мкс
-    AT91C_BASE_PITC->PITC_PIMR = AT91C_PITC_PITEN
-                               | AT91C_PITC_PITIEN
-                               | 867;
-
-    // Инициализация USART0
     usart0_init(256000);
-    
-    // Инициализация MCP4726 (все 4 канала)
+    //usart0_init(460800);
     mcp4726_init_all();
     
     __enable_interrupt();
 
     while (1) {
-        // Проверка приема команд с ПК
         check_usart_rx();
         
-        // Выполнение последовательного теста по флагу
         if (g_test_sequential_enabled) {
             test_dac_sequential_channels();
         }
