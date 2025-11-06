@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# IAR ELF Linker V7.70.1.11437/W32 for ARM                01/Nov/2025  14:45:59
+# IAR ELF Linker V7.70.1.11437/W32 for ARM                06/Nov/2025  09:24:03
 # Copyright 2007-2016 IAR Systems AB.
 #
 #    Output file  =  C:\IAR_projects\IAR_AI\Lmarena\Debug\Exe\LM_gemini_gpt.out
@@ -42,58 +42,57 @@ initialize by copy { rw };
   .intvec            ro code  0x00100000    0x3c  startup.o [1]
                             - 0x0010003c    0x3c
 
-"P2":                                      0x9b4
+"P2":                                      0x9e0
   Veneer             ro code  0x00100100     0xc  - Linker created -
-  .text              ro code  0x0010010c   0x3b0  main.o [1]
-  Veneer             ro code  0x001004bc     0x4  - Linker created -
-  .text              ro code  0x001004c0   0x1a4  I32DivMod.o [4]
-  .text              ro code  0x00100664   0x1e4  mcp4726.o [1]
-  Veneer             ro code  0x00100848     0x4  - Linker created -
-  .text              ro code  0x0010084c    0x10  main.o [1]
-  .text              ro code  0x0010085c     0x4  IntDivZer.o [4]
-  .text              ro code  0x00100860    0xe4  startup.o [1]
-  Veneer             ro code  0x00100944     0xc  - Linker created -
-  Veneer             ro code  0x00100950     0xc  - Linker created -
+  .text              ro code  0x0010010c   0x3c8  main.o [1]
+  Veneer             ro code  0x001004d4     0x4  - Linker created -
+  .text              ro code  0x001004d8   0x1a4  I32DivMod.o [4]
+  .text              ro code  0x0010067c   0x1e4  mcp4726.o [1]
+  Veneer             ro code  0x00100860     0x4  - Linker created -
+  .text              ro code  0x00100864    0x10  main.o [1]
+  .text              ro code  0x00100874     0x4  IntDivZer.o [4]
+  .text              ro code  0x00100878    0xe4  startup.o [1]
   Veneer             ro code  0x0010095c     0xc  - Linker created -
   Veneer             ro code  0x00100968     0xc  - Linker created -
-  .text              ro code  0x00100974    0x2c  cmain.o [4]
-  .text              ro code  0x001009a0     0x4  low_level_init.o [3]
-  .text              ro code  0x001009a4    0x32  data_init.o [4]
-  .text              ro code  0x001009d6     0xa  exit.o [3]
-  .text              ro code  0x001009e0    0x20  exit.o [5]
-  Veneer             ro code  0x00100a00     0x4  - Linker created -
-  .text              ro code  0x00100a04    0x10  cexit.o [4]
-  .text              ro code  0x00100a14    0x3c  zero_init3.o [4]
-  .text              ro code  0x00100a50    0x30  copy_init3.o [4]
-  .iar.init_table    const    0x00100a80    0x24  - Linker created -
-  Initializer bytes  const    0x00100aa4     0x8  <for P3-1>
-  .text              ro code  0x00100aac     0x4  vectortrap.o [4]
-  .text              ro code  0x00100ab0     0x4  xreturnswi.o [5]
-  .rodata            const    0x00100ab4     0x0  zero_init3.o [4]
-  .rodata            const    0x00100ab4     0x0  copy_init3.o [4]
-                            - 0x00100ab4   0x9b4
+  Veneer             ro code  0x00100974     0xc  - Linker created -
+  Veneer             ro code  0x00100980     0xc  - Linker created -
+  .text              ro code  0x0010098c    0x2c  cmain.o [4]
+  .text              ro code  0x001009b8     0x4  low_level_init.o [3]
+  .text              ro code  0x001009bc    0x32  data_init.o [4]
+  .text              ro code  0x001009ee     0xa  exit.o [3]
+  .text              ro code  0x001009f8    0x20  exit.o [5]
+  Veneer             ro code  0x00100a18     0x4  - Linker created -
+  .text              ro code  0x00100a1c    0x10  cexit.o [4]
+  .text              ro code  0x00100a2c    0x3c  zero_init3.o [4]
+  .text              ro code  0x00100a68    0x30  copy_init3.o [4]
+  .iar.init_table    const    0x00100a98    0x24  - Linker created -
+  Initializer bytes  const    0x00100abc    0x1c  <for P3-1>
+  .text              ro code  0x00100ad8     0x4  vectortrap.o [4]
+  .text              ro code  0x00100adc     0x4  xreturnswi.o [5]
+  .rodata            const    0x00100ae0     0x0  zero_init3.o [4]
+  .rodata            const    0x00100ae0     0x0  copy_init3.o [4]
+                            - 0x00100ae0   0x9e0
 
-"P3", part 1 of 3:                           0x8
-  P3-1                        0x00200000     0x8  <Init block>
-    .data            inited   0x00200000     0x4  mcp4726.o [1]
-    .data            inited   0x00200004     0x2  mcp4726.o [1]
-    .data            inited   0x00200006     0x2  mcp4726.o [1]
-                            - 0x00200008     0x8
+"P3", part 1 of 3:                          0x1c
+  P3-1                        0x00200000    0x1c  <Init block>
+    .data            inited   0x00200000    0x14  main.o [1]
+    .data            inited   0x00200014     0x4  mcp4726.o [1]
+    .data            inited   0x00200018     0x2  mcp4726.o [1]
+    .data            inited   0x0020001a     0x2  mcp4726.o [1]
+                            - 0x0020001c    0x1c
 
 "P3", part 2 of 3:                        0x1800
-  IRQ_STACK                   0x00200008   0x800  <Block>
-    IRQ_STACK        uninit   0x00200008   0x800  <Block tail>
-  CSTACK                      0x00200808  0x1000  <Block>
-    CSTACK           uninit   0x00200808  0x1000  <Block tail>
-                            - 0x00201808  0x1800
+  IRQ_STACK                   0x00200020   0x800  <Block>
+    IRQ_STACK        uninit   0x00200020   0x800  <Block tail>
+  CSTACK                      0x00200820  0x1000  <Block>
+    CSTACK           uninit   0x00200820  0x1000  <Block tail>
+                            - 0x00201820  0x1800
 
-"P3", part 3 of 3:                          0xf0
-  .bss               zero     0x00201808    0xc8  main.o [1]
-  .bss               zero     0x002018d0    0x10  main.o [1]
-  .bss               zero     0x002018e0     0xc  main.o [1]
-  .bss               zero     0x002018ec     0x8  main.o [1]
-  .bss               zero     0x002018f4     0x1  main.o [1]
-                            - 0x002018f5    0xed
+"P3", part 3 of 3:                         0x200
+  .bss               zero     0x00201820   0x1f4  main.o [1]
+  .bss               zero     0x00201a14     0x8  main.o [1]
+  .bss               zero     0x00201a1c     0x2  main.o [1]
+                            - 0x00201a1e   0x1fe
 
 
 *******************************************************************************
@@ -103,14 +102,14 @@ initialize by copy { rw };
           Address     Size
           -------     ----
 Zero (__iar_zero_init3)
-    1 destination range, total size 0xed:
-          0x00201808  0xed
+    1 destination range, total size 0x1fe:
+          0x00201820  0x1fe
 
 Copy (__iar_copy_init3)
-    1 source range, total size 0x8:
-          0x00100aa4   0x8
-    1 destination range, total size 0x8:
-          0x00200000   0x8
+    1 source range, total size 0x1c:
+          0x00100abc   0x1c
+    1 destination range, total size 0x1c:
+          0x00200000   0x1c
 
 
 
@@ -121,11 +120,11 @@ Copy (__iar_copy_init3)
     Module            ro code  ro data  rw data
     ------            -------  -------  -------
 C:\IAR_projects\IAR_AI\Lmarena\Debug\Obj: [1]
-    main.o                960               237
+    main.o                984       20      530
     mcp4726.o             484        8        8
     startup.o             288
     -------------------------------------------
-    Total:              1 732        8      245
+    Total:              1 756       28      538
 
 command line: [2]
     -------------------------------------------
@@ -157,111 +156,116 @@ shs_l.a: [5]
 
     Linker created         72       36    6 144
 -----------------------------------------------
-    Grand Total:        2 500       44    6 389
+    Grand Total:        2 524       64    6 682
 
 
 *******************************************************************************
 *** ENTRY LIST
 ***
 
-Entry                      Address  Size  Type      Object
------                      -------  ----  ----      ------
-.iar.init_table$$Base   0x00100a80         --   Gb  - Linker created -
-.iar.init_table$$Limit  0x00100aa4         --   Gb  - Linker created -
-?main                   0x00100974        Code  Gb  cmain.o [4]
-Abort_Handler           0x00100aac        Code  Wk  vectortrap.o [4]
-CSTACK$$Base            0x00200808         --   Gb  - Linker created -
-CSTACK$$Limit           0x00201808         --   Gb  - Linker created -
-FIQ_Handler             0x00100aac        Code  Wk  vectortrap.o [4]
-FIQ_STACK$$Limit        0x00000000         --   Gb  - Linker created -
-IRQ_Handler             0x00100404  0x34  Code  Gb  main.o [1]
-IRQ_STACK$$Base         0x00200008         --   Gb  - Linker created -
-IRQ_STACK$$Limit        0x00200808         --   Gb  - Linker created -
-PIT_Handler             0x0010036d  0x88  Code  Gb  main.o [1]
-Prefetch_Handler        0x00100aac        Code  Wk  vectortrap.o [4]
-Region$$Table$$Base     0x00100a80         --   Gb  - Linker created -
-Region$$Table$$Limit    0x00100aa4         --   Gb  - Linker created -
-SCL_HIGH                0x0010068b  0x2e  Code  Lc  mcp4726.o [1]
-SWI_Handler             0x00100aac        Code  Wk  vectortrap.o [4]
-Undefined_Handler       0x00100aac        Code  Wk  vectortrap.o [4]
+Entry                      Address   Size  Type      Object
+-----                      -------   ----  ----      ------
+.iar.init_table$$Base   0x00100a98          --   Gb  - Linker created -
+.iar.init_table$$Limit  0x00100abc          --   Gb  - Linker created -
+?main                   0x0010098c         Code  Gb  cmain.o [4]
+Abort_Handler           0x00100ad8         Code  Wk  vectortrap.o [4]
+CSTACK$$Base            0x00200820          --   Gb  - Linker created -
+CSTACK$$Limit           0x00201820          --   Gb  - Linker created -
+FIQ_Handler             0x00100ad8         Code  Wk  vectortrap.o [4]
+FIQ_STACK$$Limit        0x00000000          --   Gb  - Linker created -
+IRQ_Handler             0x0010041c   0x34  Code  Gb  main.o [1]
+IRQ_STACK$$Base         0x00200020          --   Gb  - Linker created -
+IRQ_STACK$$Limit        0x00200820          --   Gb  - Linker created -
+PIT_Handler             0x00100375   0x8a  Code  Gb  main.o [1]
+Prefetch_Handler        0x00100ad8         Code  Wk  vectortrap.o [4]
+Region$$Table$$Base     0x00100a98          --   Gb  - Linker created -
+Region$$Table$$Limit    0x00100abc          --   Gb  - Linker created -
+SCL_HIGH                0x001006a3   0x2e  Code  Lc  mcp4726.o [1]
+SWI_Handler             0x00100ad8         Code  Wk  vectortrap.o [4]
+Undefined_Handler       0x00100ad8         Code  Wk  vectortrap.o [4]
 __ICFEDIT_region_RAM_end__ {Abs}
-                        0x0020ffff        Data  Gb  command line/config [2]
+                        0x0020ffff         Data  Gb  command line/config [2]
 __ICFEDIT_region_RAM_start__ {Abs}
-                        0x00200000        Data  Gb  command line/config [2]
+                        0x00200000         Data  Gb  command line/config [2]
 __ICFEDIT_region_ROM_end__ {Abs}
-                        0x0013ffff        Data  Gb  command line/config [2]
+                        0x0013ffff         Data  Gb  command line/config [2]
 __ICFEDIT_region_ROM_start__ {Abs}
-                        0x00100000        Data  Gb  command line/config [2]
+                        0x00100000         Data  Gb  command line/config [2]
 __ICFEDIT_size_cstack__ {Abs}
-                        0x00001000        Data  Gb  command line/config [2]
+                        0x00001000         Data  Gb  command line/config [2]
 __ICFEDIT_size_heap__ {Abs}
-                        0x00000000        Data  Gb  command line/config [2]
+                        0x00000000         Data  Gb  command line/config [2]
 __ICFEDIT_size_irqstack__ {Abs}
-                        0x00000800        Data  Gb  command line/config [2]
+                        0x00000800         Data  Gb  command line/config [2]
 __ICFEDIT_size_startup__ {Abs}
-                        0x00000100        Data  Gb  command line/config [2]
+                        0x00000100         Data  Gb  command line/config [2]
 __ICFEDIT_size_svcstack__ {Abs}
-                        0x00000400        Data  Gb  command line/config [2]
+                        0x00000400         Data  Gb  command line/config [2]
 __ICFEDIT_size_vectors__ {Abs}
-                        0x00000100        Data  Gb  command line/config [2]
-__aeabi_idiv0           0x0010085c        Code  Gb  IntDivZer.o [4]
-__aeabi_uidiv           0x001004c0        Code  Gb  I32DivMod.o [4]
-__aeabi_uidivmod        0x001004c0        Code  Gb  I32DivMod.o [4]
-__cmain                 0x00100974        Code  Gb  cmain.o [4]
-__exit                  0x001009e0  0x20  Code  Gb  exit.o [5]
-__iar_copy_init3        0x00100a51  0x30  Code  Gb  copy_init3.o [4]
-__iar_data_init3        0x001009a5  0x30  Code  Gb  data_init.o [4]
-__iar_enable_interrupt  0x0010084c        Code  Gb  main.o [1]
-__iar_program_start     0x00100860        Code  Gb  startup.o [1]
-__iar_return_from_swi   0x00100ab0   0x4  Code  Gb  xreturnswi.o [5]
-__iar_zero_init3        0x00100a15  0x3c  Code  Gb  zero_init3.o [4]
-__low_level_init        0x001009a1   0x4  Code  Gb  low_level_init.o [3]
-__vector                0x00100000        Data  Gb  startup.o [1]
-_call_main              0x00100988        Code  Gb  cmain.o [4]
-_exit                   0x00100a04        Code  Gb  cexit.o [4]
-_main                   0x00100990        Code  Gb  cmain.o [4]
-adc_init                0x0010010d  0x1a  Code  Gb  main.o [1]
-adc_read                0x00100127  0x60  Code  Gb  main.o [1]
-batch_buffer            0x00201808  0xc8  Data  Lc  main.o [1]
-batch_index             0x002018d0   0x1  Data  Lc  main.o [1]
-check_timeout           0x001002ff  0x1c  Code  Gb  main.o [1]
-check_usart_rx          0x0010029b  0x64  Code  Gb  main.o [1]
-exit                    0x001009d7   0xa  Code  Gb  exit.o [3]
-g_current_sda_mask      0x00200000   0x4  Data  Lc  mcp4726.o [1]
-g_i2c_delay_loops       0x00200004   0x2  Data  Lc  mcp4726.o [1]
-g_initialized           0x00200007   0x1  Data  Lc  mcp4726.o [1]
-g_mcp4726_addr          0x00200006   0x1  Data  Lc  mcp4726.o [1]
-g_sda_masks             0x00100838  0x10  Data  Lc  mcp4726.o [1]
+                        0x00000100         Data  Gb  command line/config [2]
+__aeabi_idiv0           0x00100874         Code  Gb  IntDivZer.o [4]
+__aeabi_uidiv           0x001004d8         Code  Gb  I32DivMod.o [4]
+__aeabi_uidivmod        0x001004d8         Code  Gb  I32DivMod.o [4]
+__cmain                 0x0010098c         Code  Gb  cmain.o [4]
+__exit                  0x001009f8   0x20  Code  Gb  exit.o [5]
+__iar_copy_init3        0x00100a69   0x30  Code  Gb  copy_init3.o [4]
+__iar_data_init3        0x001009bd   0x30  Code  Gb  data_init.o [4]
+__iar_enable_interrupt  0x00100864         Code  Gb  main.o [1]
+__iar_program_start     0x00100878         Code  Gb  startup.o [1]
+__iar_return_from_swi   0x00100adc    0x4  Code  Gb  xreturnswi.o [5]
+__iar_zero_init3        0x00100a2d   0x3c  Code  Gb  zero_init3.o [4]
+__low_level_init        0x001009b9    0x4  Code  Gb  low_level_init.o [3]
+__vector                0x00100000         Data  Gb  startup.o [1]
+_call_main              0x001009a0         Code  Gb  cmain.o [4]
+_exit                   0x00100a1c         Code  Gb  cexit.o [4]
+_main                   0x001009a8         Code  Gb  cmain.o [4]
+adc_init                0x0010010d   0x1a  Code  Gb  main.o [1]
+adc_read                0x00100127   0x60  Code  Gb  main.o [1]
+batch_buffer            0x00201820  0x1f4  Data  Lc  main.o [1]
+batch_index             0x00200000    0x1  Data  Lc  main.o [1]
+check_timeout           0x0010030b   0x1c  Code  Gb  main.o [1]
+check_usart_rx          0x001002b9   0x52  Code  Gb  main.o [1]
+check_usart_rx::rx_cmd  0x00201a1d    0x1  Data  Lc  main.o [1]
+check_usart_rx::rx_state
+                        0x00201a1c    0x1  Data  Lc  main.o [1]
+exit                    0x001009ef    0xa  Code  Gb  exit.o [3]
+g_current_sda_mask      0x00200014    0x4  Data  Lc  mcp4726.o [1]
+g_i2c_delay_loops       0x00200018    0x2  Data  Lc  mcp4726.o [1]
+g_initialized           0x0020001b    0x1  Data  Lc  mcp4726.o [1]
+g_mcp4726_addr          0x0020001a    0x1  Data  Lc  mcp4726.o [1]
+g_sda_masks             0x00100850   0x10  Data  Lc  mcp4726.o [1]
 g_test_sequential_enabled
-                        0x002018f4   0x1  Data  Gb  main.o [1]
-g_tick_counter          0x002018d8   0x4  Data  Gb  main.o [1]
-i2c_delay               0x00100665  0x26  Code  Lc  mcp4726.o [1]
-i2c_start               0x001006b9  0x26  Code  Lc  mcp4726.o [1]
-i2c_stop                0x001006df  0x24  Code  Lc  mcp4726.o [1]
-i2c_write_byte          0x00100703  0x54  Code  Lc  mcp4726.o [1]
-led_state               0x002018dc   0x4  Data  Gb  main.o [1]
-low_level_init          0x001008b0        Code  Gb  startup.o [1]
-main                    0x00100439  0x4e  Code  Gb  main.o [1]
-mcp4726_init_all        0x0010076f  0x34  Code  Gb  mcp4726.o [1]
-mcp4726_set_all_zero    0x001007fd  0x1e  Code  Gb  mcp4726.o [1]
+                        0x00200002    0x1  Data  Gb  main.o [1]
+g_tick_counter          0x00200008    0x4  Data  Gb  main.o [1]
+i2c_delay               0x0010067d   0x26  Code  Lc  mcp4726.o [1]
+i2c_start               0x001006d1   0x26  Code  Lc  mcp4726.o [1]
+i2c_stop                0x001006f7   0x24  Code  Lc  mcp4726.o [1]
+i2c_write_byte          0x0010071b   0x54  Code  Lc  mcp4726.o [1]
+last_cmd                0x00200001    0x1  Data  Lc  main.o [1]
+last_cmd_time           0x0020000c    0x4  Data  Lc  main.o [1]
+led_state               0x00200010    0x4  Data  Gb  main.o [1]
+low_level_init          0x001008c8         Code  Gb  startup.o [1]
+main                    0x00100451   0x56  Code  Gb  main.o [1]
+mcp4726_init_all        0x00100787   0x34  Code  Gb  mcp4726.o [1]
+mcp4726_set_all_zero    0x00100815   0x1e  Code  Gb  mcp4726.o [1]
 mcp4726_write_dac_channel
-                        0x001007a3  0x5a  Code  Gb  mcp4726.o [1]
-process_command         0x00100243  0x58  Code  Gb  main.o [1]
-rx_cmd_buffer           0x002018e4   0x8  Data  Lc  main.o [1]
-rx_cmd_index            0x002018e0   0x1  Data  Lc  main.o [1]
-select_channel          0x00100759  0x16  Code  Lc  mcp4726.o [1]
-send_batch              0x001001d5  0x6e  Code  Gb  main.o [1]
-short_counter           0x002018d4   0x4  Data  Gb  main.o [1]
+                        0x001007bb   0x5a  Code  Gb  mcp4726.o [1]
+process_command         0x00100279   0x40  Code  Gb  main.o [1]
+select_channel          0x00100771   0x16  Code  Lc  mcp4726.o [1]
+send_batch              0x0010020b   0x6e  Code  Gb  main.o [1]
+short_counter           0x00200004    0x4  Data  Gb  main.o [1]
 test_dac_sequential_channels
-                        0x0010031b  0x44  Code  Gb  main.o [1]
+                        0x00100327   0x40  Code  Gb  main.o [1]
 test_dac_sequential_channels::current_channel
-                        0x002018ec   0x1  Data  Lc  main.o [1]
+                        0x00201a14    0x1  Data  Lc  main.o [1]
 test_dac_sequential_channels::dac_value
-                        0x002018ee   0x2  Data  Lc  main.o [1]
+                        0x00201a16    0x2  Data  Lc  main.o [1]
 test_dac_sequential_channels::last_update
-                        0x002018f0   0x4  Data  Lc  main.o [1]
-usart0_init             0x00100187  0x42  Code  Gb  main.o [1]
-usart0_putc             0x001001c9   0xc  Code  Gb  main.o [1]
+                        0x00201a18    0x4  Data  Lc  main.o [1]
+usart0_init             0x00100187   0x30  Code  Gb  main.o [1]
+usart0_putc             0x001001b7    0x4  Code  Gb  main.o [1]
+usart1_init             0x001001bb   0x30  Code  Gb  main.o [1]
+usart1_putc             0x001001ff    0x2  Code  Gb  main.o [1]
 
 
 [1] = C:\IAR_projects\IAR_AI\Lmarena\Debug\Obj
@@ -270,9 +274,9 @@ usart0_putc             0x001001c9   0xc  Code  Gb  main.o [1]
 [4] = rt4t_al.a
 [5] = shs_l.a
 
-  2 500 bytes of readonly  code memory
-     44 bytes of readonly  data memory
-  6 389 bytes of readwrite data memory
+  2 524 bytes of readonly  code memory
+     64 bytes of readonly  data memory
+  6 682 bytes of readwrite data memory
 
 Errors: none
 Warnings: none
