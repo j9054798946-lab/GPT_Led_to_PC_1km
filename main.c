@@ -40,6 +40,8 @@ static uint32_t last_cmd_time = 0;
 // Флаги
 volatile bool g_test_sequential_enabled = false;
 volatile unsigned int led_state = 0;
+static uint8_t g_cmd_ack = 0;        // Команда для подтверждения (0 = нет)
+static uint8_t g_cmd_ack_counter = 0; // Счётчик батчей с подтверждением
 
 #define MCK 27752640UL
 
@@ -169,21 +171,39 @@ void usart1_puts(const char* str)
 void send_batch(void)
 {
     // Заголовок батча
-    usart1_putc(0xBB);  // < ИЗМЕНЕНО: usart1 вместо usart0
+    usart1_putc(0xBB);
     usart1_putc(batch_index);
     
     // Отправка всех измерений
     for (uint8_t i = 0; i < batch_index; i++) {
-        usart1_putc(batch_buffer[i].led ? '1' : '0');  // < usart1
+        // ========== ФОРМИРОВАНИЕ БАЙТА СТАТУСА ==========
+        uint8_t status_byte = 0;
         
+        // Биты 0: LED состояние
+        if (batch_buffer[i].led) {
+            status_byte |= 0x01;
+        }
+        
+        // Биты 7-4: Подтверждение команды
+        if (g_cmd_ack_counter > 0) {
+            status_byte |= (g_cmd_ack << 4);
+            if (i == batch_index - 1) {  // Декремент только в последнем измерении батча
+                g_cmd_ack_counter--;
+                if (g_cmd_ack_counter == 0) {
+                    g_cmd_ack = 0;  // Сбросить после завершения
+                }
+            }
+        }
+                // Отправить байт статуса
+        usart1_putc(status_byte);
+                // Отправить 4 канала АЦП
         for (uint8_t ch = 0; ch < ADC_CHANNELS; ch++) {
-            usart1_putc((batch_buffer[i].adc[ch] >> 8) & 0xFF);  // < usart1
-            usart1_putc(batch_buffer[i].adc[ch] & 0xFF);          // < usart1
+            usart1_putc((batch_buffer[i].adc[ch] >> 8) & 0xFF);
+            usart1_putc(batch_buffer[i].adc[ch] & 0xFF);
         }
     }
-    
-    // Маркер конца
-    usart1_putc(0xCC);  // < usart1
+                // Маркер конца
+    usart1_putc(0xCC);
     
     batch_index = 0;
 }
@@ -191,23 +211,26 @@ void send_batch(void)
 // ========== Обработка принятой команды ==========
 void process_command(uint8_t cmd, uint8_t arg)
 {
-    // Игнорировать дубликаты
+    // Игнорировать дубликаты в течение 100 мс
     if (cmd == last_cmd && (g_tick_counter - last_cmd_time) < 200) {
         return;
     }
     
     last_cmd = cmd;
     last_cmd_time = g_tick_counter;
+        // ========== НОВОЕ: Сохранить команду для подтверждения ==========
+    g_cmd_ack = cmd;
+    g_cmd_ack_counter = 50;  // Подтверждать в течение 50 батчей (~1.25 сек)
+        // ========== УБРАТЬ Echo через USART0! ==========
+    // usart0_putc(0xEE);  // < УДАЛИТЬ
+    // usart0_putc(cmd);   // < УДАЛИТЬ
     
-    // Echo отправляем обратно через USART0
-    usart0_putc(0xEE);  // < Оставляем usart0!
-    usart0_putc(cmd);
-    
+    // Обработка команд
     switch (cmd) {
-        case 0x01:
+        case 0x01:  // Последовательный тест ВКЛ
             g_test_sequential_enabled = true;
             break;
-        case 0x02:
+        case 0x02:  // Последовательный тест ВЫКЛ
             g_test_sequential_enabled = false;
             break;
         default:
